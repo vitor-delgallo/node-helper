@@ -3,6 +3,7 @@ const VDFileHelper = require('./file.js');
 const VDStringHelper = require('./string.js');
 const VDNumberHelper = require('./number.js');
 const VDGenericHelper = require('./generic.js');
+const VDGithubHelper = require('./github.js');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
@@ -25,8 +26,11 @@ class VDLogHelper {
             LOG_LIMIT: (process.env.VD_LOG_LIMIT_VALUE ?? 7),
             GC: {
                 PROBABILITY: (process.env.VD_LOG_GC_PROBABILITY ?? 5),
-                DIVISOR: (GC_DIVISOR <= 0 ? 100 : GC_DIVISOR)
-            }
+                DIVISOR: (GC_DIVISOR <= 0 ? 100 : GC_DIVISOR),
+            },
+            INTEGRATIONS: {
+                GITHUB: (!!process.env.VD_LOG_AUTO_SEND_GITHUB),
+            },
         };
 
         // Verifica quantos arquivos .log que começam com NOW ultrapassam o número máximo de MB
@@ -125,7 +129,7 @@ class VDLogHelper {
      *
      * @returns {boolean} Retorna `true` se arquivos foram excluídos, `false` caso contrário.
      */
-    static garbageCollector(force = false) {
+    static async garbageCollector(force = false) {
         if(!force && VDNumberHelper.getRandomInt(1, this.CONFIGS.GC.DIVISOR) > this.CONFIGS.GC.PROBABILITY) {
             return false;
         }
@@ -133,14 +137,21 @@ class VDLogHelper {
         try {
             const files = fs.readdirSync(this.CONFIGS.PATH_LOGS);
             const now = Date.now();
-            files.forEach(file => {
+            for (const file of files) {
                 const filePath = path.join(this.CONFIGS.PATH_LOGS, file);
                 const stats = fs.statSync(filePath);
                 const diff = now - stats.mtime.getTime();
                 if (diff > this.LOG_LIMIT_MS) {
-                    fs.unlinkSync(filePath);
+                    if(this.CONFIGS.INTEGRATIONS.GITHUB) {
+                        let remove = await VDGithubHelper.uploadFile("LMSync", "main", filePath, file);
+                        if(remove) {
+                            fs.unlinkSync(filePath);
+                        }
+                    } else {
+                        fs.unlinkSync(filePath);
+                    }
                 }
-            });
+            }
 
             return true;
         } catch (err) {
@@ -155,16 +166,19 @@ class VDLogHelper {
      * @param {string} message Mensagem a ser registrada.
      * @param {string} type Tipo do log (INFO, WARN, ERRO).
      */
-    static add(message, type) {
+    static async add(message, type) {
+        this.initialize();
         if (message && message.length > 0) {
             const logMessage = VDDateHelper.getNow("America/Sao_Paulo", 'YYYY-MM-DD HH:mm:ss') + " " + type + " > " + message + "\n";
             const filePath = this.CONFIGS.FILE_PATH;
+            const remoteFileGH = filePath.substring(filePath.split("\\").join("/").lastIndexOf('/') + 1);
             if (!VDFileHelper.appendStringToFile(filePath, logMessage)) {
                 this.showMessageError();
+            } else if(this.CONFIGS.INTEGRATIONS.GITHUB) {
+                await VDGithubHelper.uploadFile("LMSync", "main", filePath, remoteFileGH);
             }
         }
-        this.initialize();
-        this.garbageCollector();
+        await this.garbageCollector();
     }
 
     /**
@@ -172,8 +186,8 @@ class VDLogHelper {
      *
      * @param {string} message Mensagem a ser registrada.
      */
-    static addInfo(message) {
-        this.add(VDStringHelper.removeTags(message), "INFO");
+    static async addInfo(message) {
+        await this.add(VDStringHelper.removeTags(message), "INFO");
     }
 
     /**
@@ -181,8 +195,8 @@ class VDLogHelper {
      *
      * @param {string} message Mensagem a ser registrada.
      */
-    static addWarning(message) {
-        this.add(VDStringHelper.removeTags(message), "WARN");
+    static async addWarning(message) {
+        await this.add(VDStringHelper.removeTags(message), "WARN");
     }
 
     /**
@@ -190,8 +204,8 @@ class VDLogHelper {
      *
      * @param {string} message Mensagem a ser registrada.
      */
-    static addError(message) {
-        this.add(VDStringHelper.removeTags(message), "ERRO");
+    static async addError(message) {
+        await this.add(VDStringHelper.removeTags(message), "ERRO");
     }
 
     /**
@@ -199,8 +213,8 @@ class VDLogHelper {
      *
      * @param {Error} error Objeto de erro a ser registrado.
      */
-    static addException(error) {
-        this.add(VDGenericHelper.returnStackTrace(error), "ERRO");
+    static async addException(error) {
+        await this.add(VDGenericHelper.returnStackTrace(error), "ERRO");
     }
 }
 
