@@ -199,6 +199,52 @@ console.log(NumberHelper.toInteger("R$ 1.234,56")); // 1234
 
 ---
 
+## 📦 Configuração de Variáveis de Ambiente (.env)
+
+O projeto utiliza um arquivo `.env` para armazenar configurações sensíveis, como tokens de API e credenciais. Certifique-se de criar um arquivo `.env` na raiz do projeto e preencher as variáveis conforme necessário.
+
+### 📄 Exemplo de `.env`:
+```ini
+# Configurações do GitHub
+VD_GITHUB_TOKEN=seu-token-aqui
+VD_GITHUB_OWNER=seu-usuario
+VD_GITHUB_RETRYS=3
+VD_GITHUB_AUTHOR=Seu Nome
+VD_GITHUB_EMAIL_AUTHOR=seu-email@exemplo.com
+
+# Configurações de Log
+VD_LOG_FOLDERNAME=logs
+VD_LOG_EXTENSION=.log
+VD_LOG_TIMEZONE=America/Sao_Paulo
+VD_LOG_MAXSIZEMB_PER_FILE=300
+VD_LOG_LIMIT_UNITY=days
+VD_LOG_LIMIT_VALUE=7
+VD_LOG_GC_PROBABILITY=5
+VD_LOG_GC_DIVISOR=100
+VD_LOG_AUTO_SEND_GITHUB=true
+```
+
+### 🔹 Descrição das variáveis:
+#### **GitHub**
+- `VD_GITHUB_TOKEN`: Token de autenticação para integração com o GitHub.
+- `VD_GITHUB_OWNER`: Nome do usuário ou organização no GitHub.
+- `VD_GITHUB_RETRYS`: Número máximo de tentativas ao tentar fazer upload de arquivos.
+- `VD_GITHUB_AUTHOR`: Nome do autor do commit.
+- `VD_GITHUB_EMAIL_AUTHOR`: E-mail do autor do commit.
+
+#### **Logs**
+- `VD_LOG_FOLDERNAME`: Nome da pasta onde os logs serão armazenados.
+- `VD_LOG_EXTENSION`: Extensão dos arquivos de log.
+- `VD_LOG_TIMEZONE`: Timezone utilizado para registrar os logs.
+- `VD_LOG_MAXSIZEMB_PER_FILE`: Tamanho máximo de cada arquivo de log (em MB).
+- `VD_LOG_LIMIT_UNITY`: Unidade de tempo para retenção de logs (`days`, `hours`, `minutes`, etc.).
+- `VD_LOG_LIMIT_VALUE`: Quantidade de unidades de tempo antes que os logs sejam excluídos.
+- `VD_LOG_GC_PROBABILITY`: Probabilidade de ativação do coletor de lixo dos logs.
+- `VD_LOG_GC_DIVISOR`: Fator divisor para o cálculo da coleta de lixo.
+- `VD_LOG_AUTO_SEND_GITHUB`: Define se os logs serão enviados automaticamente para o GitHub (`true` ou `false`).
+
+---
+
 ## 📜 Scripts Disponíveis
 
 | Comando         | Descrição |

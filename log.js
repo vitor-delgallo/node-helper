@@ -3,6 +3,7 @@ const VDFileHelper = require('./file.js');
 const VDStringHelper = require('./string.js');
 const VDNumberHelper = require('./number.js');
 const VDGenericHelper = require('./generic.js');
+const VDGithubHelper = require('./github.js');
 const fs = require('fs');
 const path = require('path');
 require('dotenv').config();
@@ -25,8 +26,11 @@ class VDLogHelper {
             LOG_LIMIT: (process.env.VD_LOG_LIMIT_VALUE ?? 7),
             GC: {
                 PROBABILITY: (process.env.VD_LOG_GC_PROBABILITY ?? 5),
-                DIVISOR: (GC_DIVISOR <= 0 ? 100 : GC_DIVISOR)
-            }
+                DIVISOR: (GC_DIVISOR <= 0 ? 100 : GC_DIVISOR),
+            },
+            INTEGRATIONS: {
+                GITHUB: (!!process.env.VD_LOG_AUTO_SEND_GITHUB),
+            },
         };
 
         // Verifica quantos arquivos .log que começam com NOW ultrapassam o número máximo de MB
@@ -138,7 +142,13 @@ class VDLogHelper {
                 const stats = fs.statSync(filePath);
                 const diff = now - stats.mtime.getTime();
                 if (diff > this.LOG_LIMIT_MS) {
-                    fs.unlinkSync(filePath);
+                    let remove = true;
+                    if(this.CONFIGS.INTEGRATIONS.GITHUB) {
+                        remove = VDGithubHelper.uploadFile("LMSync", "main", filePath, file);
+                    }
+                    if(remove) {
+                        fs.unlinkSync(filePath);
+                    }
                 }
             });
 
@@ -156,14 +166,17 @@ class VDLogHelper {
      * @param {string} type Tipo do log (INFO, WARN, ERRO).
      */
     static add(message, type) {
+        this.initialize();
         if (message && message.length > 0) {
             const logMessage = VDDateHelper.getNow("America/Sao_Paulo", 'YYYY-MM-DD HH:mm:ss') + " " + type + " > " + message + "\n";
             const filePath = this.CONFIGS.FILE_PATH;
+            const remoteFileGH = filePath.substring(filePath.split("\\").join("/").lastIndexOf('/') + 1);
             if (!VDFileHelper.appendStringToFile(filePath, logMessage)) {
                 this.showMessageError();
+            } else if(this.CONFIGS.INTEGRATIONS.GITHUB) {
+                VDGithubHelper.uploadFile("LMSync", "main", filePath, remoteFileGH);
             }
         }
-        this.initialize();
         this.garbageCollector();
     }
 
