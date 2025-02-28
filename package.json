@@ -1,0 +1,40 @@
+{
+  "name": "node-helper",
+  "version": "1.0.0",
+  "description": "NodeJS Helper Librarys",
+  "main": "./dist/index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:prod": "NODE_ENV=production node index.js",
+    "build:linux": "rm -rf dist && mkdir dist && for file in *.js; do terser \"$file\" --compress --mangle --output \"dist/${file%.js}.min.js\"; done",
+    "build:windows": "if exist dist rmdir /s /q dist && mkdir dist && for %f in (*.js) do terser %f --compress --mangle --output dist/%~nf.min.js",
+    "build": "node -e \"process.platform === 'win32' ? require('child_process').execSync('npm run build:windows', {stdio: 'inherit'}) : require('child_process').execSync('npm run build:linux', {stdio: 'inherit'})\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vitorgd16/node-helper.git"
+  },
+  "keywords": [
+    "node",
+    "utils",
+    "helper",
+    "library"
+  ],
+  "author": "Vitor Delgallo",
+  "license": "MIT",
+  "files": [
+    "dist/",
+    "README.md",
+    "LICENSE.txt"
+  ],
+  "dependencies": {
+    "@octokit/rest": "^21.1.1",
+    "dotenv": "^16.4.7",
+    "moment-timezone": "^0.5.47",
+    "odbc": "^2.4.9"
+  },
+  "devDependencies": {
+    "esbuild": "^0.25.0",
+    "terser": "^5.39.0"
+  }
+}
