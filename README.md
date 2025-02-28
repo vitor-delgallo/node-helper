@@ -39,6 +39,8 @@ console.log(StringHelper.generateRandomPassword(10)); // Exemplo: "A1#bC2$dE3"
 console.log(StringHelper.removeStrings("Texto de teste", ["de", " "])); // "Textoteste"
 console.log(StringHelper.removeChrs("Texto", "tx")); // "eo"
 console.log(StringHelper.removeChrsNotIn("Texto", "eo")); // "eo"
+console.log(StringHelper.normalizeMessageIA4Whats("**Negrito** _Itálico_ __Sublinhado__")); // "*Negrito* *Itálico* *Sublinhado*"
+console.log(StringHelper.splitMessageByLength("Mensagem longa com muitas linhas\nLinha1\nLinha2\nLinha3", 20)); // Divide em partes menores
 ```
 
 📌 **Funções disponíveis:**
@@ -58,6 +60,8 @@ console.log(StringHelper.removeChrsNotIn("Texto", "eo")); // "eo"
 - `StringHelper.removeStrings(str, strsRemove)`: Remove todas as strings informadas da string principal.
 - `StringHelper.removeChrs(str, chs, notIn)`: Remove caracteres específicos de uma string.
 - `StringHelper.removeChrsNotIn(str, notIn)`: Remove todos os caracteres que não estiverem na lista informada.
+- `StringHelper.normalizeMessageIA4Whats(message)`: Normaliza uma mensagem formatada por IA para o WhatsApp, convertendo **negrito**, _itálico_ e __sublinhado__ para a formatação do WhatsApp.
+- `StringHelper.splitMessageByLength(message, maxLength)`: Divide uma mensagem em partes menores, respeitando o `maxLength`, útil para envio de mensagens no WhatsApp.
 
 ---
 

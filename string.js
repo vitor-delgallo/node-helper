@@ -341,6 +341,49 @@ class VDStringHelper {
     static removeTags(str) {
         return str.replace(/<[^>]*>?/gm, '');
     }
+
+    /**
+     * Normaliza uma mensagem retornada por Inteligência Artificial para o WhatsApp
+     *
+     * @param {string} message String para ser formatada
+     *
+     * @return {string}
+     */
+    static normalizeMessageIA4Whats(message) {
+        return message
+            .replace(/\*\*(.*?)\*\*/g, '*$1*') // Converte negrito
+            .replace(/__(.*?)__/g, '*$1*') // Converte sublinhado
+            .replace(/_(.*?)_/g, '*$1*') // Converte itálico
+            .replace(/```(.*?)```/gs, '```$1```') // Remove espaços extras
+            .replace(/\n{2,}/g, '\n'); // Remove múltiplas quebras de linha
+    }
+
+    /**
+     * Quebra uma mensagem retornada por Inteligência Artificial em várias mensagens por length.
+     *
+     * @param {string} message String para ser dividida
+     *
+     * @return {array}
+     */
+    static splitMessageByLength(message, maxLength) {
+        if (message.length <= maxLength) return [message];
+
+        const parts = [];
+        let sentences = message.split("\n");
+        let currentMessage = "";
+
+        for (const sentence of sentences) {
+            if ((currentMessage + "\n" + sentence).length > maxLength) {
+                parts.push(currentMessage.trim());
+                currentMessage = sentence;
+            } else {
+                currentMessage += (currentMessage ? "\n" : "") + sentence;
+            }
+        }
+
+        if (currentMessage) parts.push(currentMessage.trim());
+        return parts;
+    }
 }
 
 module.exports = VDStringHelper;
