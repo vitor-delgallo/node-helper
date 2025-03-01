@@ -1,8 +1,13 @@
 const crypto = require('crypto');
 
 class VDDBHelper {
-    // Realiza tratativas contra SQL Injection para os parâmetros a serem inseridos no DB
-    static msEscapeString(str, escape = "'") {
+    /**
+     * Realiza tratativas contra SQL Injection para os parâmetros a serem inseridos no DB
+     *
+     * @param {string} str Parâmetro para realizar o escape
+     * @returns {string|null}
+     */
+    static msEscapeString(str) {
         if (str === null || str === undefined) return null;
         if (typeof str === "number") return String(str);
 
@@ -26,7 +31,11 @@ class VDDBHelper {
         return str;
     }
 
-    // Gera um GUID randomico
+    /**
+     * Gera um GUID randomico
+     *
+     * @returns {string}
+     */
     static generateGUID() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
             const r = crypto.randomBytes(1)[0] % 16; // Gera um número aleatório entre 0 e 15
