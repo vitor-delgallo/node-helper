@@ -9,9 +9,14 @@ Biblioteca utilitária para projetos Node.js, contendo funções para logs, mani
 npm install git+https://github.com/vitorgd16/node-helper.git
 ```
 
-### 2️⃣ Instalar uma versão fixa do GitHub
+### 2️⃣ Instalar uma versão fixa com base em uma branch do GitHub
 ```bash
 npm install git+https://github.com/vitorgd16/node-helper.git#main
+```
+
+### 3️⃣ Instalar uma versão fixa com base em uma tag do GitHub
+```bash
+npm install git+https://github.com/vitorgd16/node-helper.git#refs/tags/1.0.0
 ```
 
 ---
