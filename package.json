@@ -32,8 +32,7 @@
   "dependencies": {
     "@octokit/rest": "^21.1.1",
     "dotenv": "^16.4.7",
-    "moment-timezone": "^0.5.47",
-    "odbc": "^2.4.9"
+    "moment-timezone": "^0.5.47"
   },
   "devDependencies": {
     "esbuild": "^0.25.0",
