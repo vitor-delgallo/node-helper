@@ -18,7 +18,7 @@ npm install git+https://github.com/vitorgd16/node-helper.git#main
 
 ### 3️⃣ Install a fixed version from a GitHub tag
 ```bash
-npm install git+https://github.com/vitorgd16/node-helper.git#refs/tags/1.0.00
+npm install github:vitorgd16/node-helper#v1.0.00
 ```
 
 ---
