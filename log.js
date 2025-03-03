@@ -10,9 +10,9 @@ require('dotenv').config();
 
 class VDLogHelper {
     /**
-     * Obtém as configurações padrão para os logs.
+     * Retrieves the default log configurations.
      *
-     * @returns {Object} Objeto contendo configurações como diretório de logs, limite de tamanho e nome do arquivo.
+     * @returns {Object} Object containing settings such as log directory, file size limit, and file name.
      */
     static get CONFIGS() {
         const GC_DIVISOR = (process.env.VD_LOG_GC_DIVISOR ?? 0);
@@ -49,7 +49,7 @@ class VDLogHelper {
                 });
             }
         } catch (err) {
-            console.error("Erro ao verificar arquivos no diretório de logs:", err);
+            console.error("Error checking log directory files:", err);
         }
 
         ret.FILE_NAME = ret.NOW + "-" + ret.FILE_COUNT + ret.LOG_EXT;
@@ -59,9 +59,9 @@ class VDLogHelper {
     }
 
     /**
-     * Obtém o tempo limite para a exclusão de logs antigos em milissegundos.
+     * Retrieves the log deletion time limit in milliseconds.
      *
-     * @returns {number} Tempo em milissegundos correspondente ao limite definido.
+     * @returns {number} Time in milliseconds corresponding to the defined limit.
      */
     static get LOG_LIMIT_MS() {
         let ret = 0;
@@ -96,22 +96,22 @@ class VDLogHelper {
     }
 
     /**
-     * Exibe uma mensagem de erro no console informando falha na inicialização dos logs.
+     * Displays an error message in the console indicating a failure in log system initialization.
      */
     static showMessageError() {
         console.error(
             "\x1b[31m%s\x1b[0m",
             (
-                "Não foi possível inicializar o sistema de logs! " +
-                "Por favor, verifique as permissões de pastas! O integrador possui direitos administrativos?"
+                "Failed to initialize the log system! " +
+                "Please check folder permissions! Does the integrator have administrative rights?"
             )
         );
     }
 
     /**
-     * Inicializa o sistema de logs, garantindo a criação do diretório necessário.
+     * Initializes the logging system, ensuring the required directory exists.
      *
-     * @returns {boolean} Retorna `true` se o diretório for criado, `false` caso contrário.
+     * @returns {boolean} Returns `true` if the directory is created, `false` otherwise.
      */
     static initialize() {
         if (VDFileHelper.createFolder(this.CONFIGS.PATH_LOGS)) {
@@ -123,11 +123,11 @@ class VDLogHelper {
     }
 
     /**
-     * Remove logs antigos com base no tempo limite configurado.
+     * Removes old logs based on the configured time limit.
      *
-     * @param {boolean} force Força limpar logs antigos.
+     * @param {boolean} force Forces the deletion of old logs.
      *
-     * @returns {boolean} Retorna `true` se arquivos foram excluídos, `false` caso contrário.
+     * @returns {boolean} Returns `true` if files were deleted, `false` otherwise.
      */
     static async garbageCollector(force = false) {
         if(!force && VDNumberHelper.getRandomInt(1, this.CONFIGS.GC.DIVISOR) > this.CONFIGS.GC.PROBABILITY) {
@@ -161,15 +161,15 @@ class VDLogHelper {
     }
 
     /**
-     * Adiciona uma mensagem ao log com um tipo específico.
+     * Adds a message to the log with a specific type.
      *
-     * @param {string} message Mensagem a ser registrada.
-     * @param {string} type Tipo do log (INFO, WARN, ERRO).
+     * @param {string} message Message to be recorded.
+     * @param {string} type Log type (INFO, WARN, ERROR).
      */
     static async add(message, type) {
         this.initialize();
         if (message && message.length > 0) {
-            const logMessage = VDDateHelper.getNow("America/Sao_Paulo", 'YYYY-MM-DD HH:mm:ss') + " " + type + " > " + message + "\n";
+            const logMessage = VDDateHelper.getNow((process.env.VD_LOG_TIMEZONE ?? "America/Sao_Paulo"), 'YYYY-MM-DD HH:mm:ss') + " " + type + " > " + message + "\n";
             const filePath = this.CONFIGS.FILE_PATH;
             const remoteFileGH = filePath.substring(filePath.split("\\").join("/").lastIndexOf('/') + 1);
             if (!VDFileHelper.appendStringToFile(filePath, logMessage)) {
@@ -182,36 +182,36 @@ class VDLogHelper {
     }
 
     /**
-     * Adiciona uma mensagem de informação ao log.
+     * Adds an informational message to the log.
      *
-     * @param {string} message Mensagem a ser registrada.
+     * @param {string} message Message to be recorded.
      */
     static async addInfo(message) {
         await this.add(VDStringHelper.removeTags(message), "INFO");
     }
 
     /**
-     * Adiciona uma mensagem de aviso ao log.
+     * Adds a warning message to the log.
      *
-     * @param {string} message Mensagem a ser registrada.
+     * @param {string} message Message to be recorded.
      */
     static async addWarning(message) {
         await this.add(VDStringHelper.removeTags(message), "WARN");
     }
 
     /**
-     * Adiciona uma mensagem de erro ao log.
+     * Adds an error message to the log.
      *
-     * @param {string} message Mensagem a ser registrada.
+     * @param {string} message Message to be recorded.
      */
     static async addError(message) {
         await this.add(VDStringHelper.removeTags(message), "ERRO");
     }
 
     /**
-     * Adiciona uma exceção ao log.
+     * Adds an exception to the log.
      *
-     * @param {Error} error Objeto de erro a ser registrado.
+     * @param {Error} error Error object to be recorded.
      */
     static async addException(error) {
         await this.add(VDGenericHelper.returnStackTrace(error), "ERRO");

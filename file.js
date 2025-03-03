@@ -3,11 +3,10 @@ const fs = require('fs');
 
 class VDFileHelper {
     /**
-     * Obtêm a extensão de um arquivo dado seu nome
+     * Retrieves the file extension given its name.
      *
-     * @param {string} filename Nome do arquivo
-     *
-     * @return {string|null}
+     * @param {string} filename File name.
+     * @returns {string|null} File extension or `null` if not found.
      */
     static getExtension(filename) {
         if(VDStringHelper.isEmpty(filename)) {
@@ -23,18 +22,18 @@ class VDFileHelper {
     }
 
     /**
-     * Formata bytes para leitura humana em texto.
+     * Formats bytes into a human-readable string.
      *
-     * @param {number} bytes Número de bytes.
-     * @param {boolean} si Determina se usará a métrica de unidades (SI).
-     *        Se TRUE, utiliza 1000 como divisor para avançar a unidade.
-     *        Se FALSE, utiliza 1024 como divisor para avançar a unidade.
-     * @param {number} dp Número de casas decimais para mostrar em tela.
+     * @param {number} bytes Number of bytes.
+     * @param {boolean} si Determines if the metric system (SI) is used.
+     *        If `true`, uses 1000 as a divisor to advance units.
+     *        If `false`, uses 1024 as a divisor to advance units.
+     * @param {number} dp Number of decimal places to display.
      *
      * @ref https://stackoverflow.com/questions/10420352/converting-file-size-in-bytes-to-human-readable-string
-     * @return Formatted string.
+     * @returns {string} Formatted file size.
      */
-    humanFileSize(bytes, si = false, dp = 2) {
+    static humanFileSize(bytes, si = false, dp = 2) {
         const thresh = si ? 1000 : 1024;
 
         if (Math.abs(bytes) < thresh) {
@@ -56,12 +55,11 @@ class VDFileHelper {
     }
 
     /**
-     * Adiciona uma string em um arquivo já existente e cria o arquivo se não existir
+     * Appends a string to an existing file, creating the file if it does not exist.
      *
-     * @param {string} filePath Caminho do arquivo
-     * @param {string} content Conteúdo a ser adicionado
-     *
-     * @return {boolean}
+     * @param {string} filePath File path.
+     * @param {string} content Content to be appended.
+     * @returns {boolean} `true` if the operation succeeds, `false` otherwise.
      */
     static appendStringToFile(filePath, content) {
         try {
@@ -73,11 +71,10 @@ class VDFileHelper {
     }
 
     /**
-     * Cria pastas caso não existam no caminho especificado
+     * Creates directories if they do not exist in the specified path.
      *
-     * @param {string} folderPath Caminho para a pasta
-     *
-     * @return {boolean}
+     * @param {string} folderPath Directory path.
+     * @returns {boolean} `true` if the folder is created or already exists, `false` otherwise.
      */
     static createFolder(folderPath) {
         try {
@@ -91,11 +88,10 @@ class VDFileHelper {
     }
 
     /**
-     * Obtêm o tamanho em bytes de um arquivo especifico
+     * Retrieves the file size in bytes.
      *
-     * @param {string} filePath Caminho para o arquivo
-     *
-     * @return {number}
+     * @param {string} filePath File path.
+     * @returns {number} File size in bytes, or `0` if the file does not exist.
      */
     static getFileSize(filePath) {
         try {

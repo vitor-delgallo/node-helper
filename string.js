@@ -2,10 +2,9 @@ const VDObjectHelper = require('./object.js');
 
 class VDStringHelper {
     /**
-     * Function isZero.
-     * Testa se uma variavel está zerada
+     * Checks if a variable is zero.
      *
-     * @param {any} thing variavel para testar
+     * @param {any} thing Variable to test.
      * @returns {boolean}
      */
     static isZero(thing) {
@@ -24,10 +23,9 @@ class VDStringHelper {
     }
 
     /**
-     * Function isEmpty.
-     * Testa se uma variavel é vazia, testando todos os possiveis casos
+     * Checks if a variable is empty, considering all possible cases.
      *
-     * @param {any} thing variavel para testar
+     * @param {any} thing Variable to test.
      * @returns {boolean}
      */
     static isEmpty(thing) {
@@ -70,10 +68,9 @@ class VDStringHelper {
     }
 
     /**
-     * Function isEmptyDecimal.
-     * Testa se uma variavel é vazia, ou vazia como float, testando todos os possiveis casos
+     * Checks if a variable is empty or an empty float, considering all possible cases.
      *
-     * @param {any} thing variavel para testar
+     * @param {any} thing Variable to test.
      * @returns {boolean}
      */
     static isEmptyDecimal(thing) {
@@ -85,10 +82,9 @@ class VDStringHelper {
     }
 
     /**
-     * Function isEmptyInteger.
-     * Testa se uma variavel é vazia, ou vazia como integer, testando todos os possiveis casos
+     * Checks if a variable is empty or an empty integer, considering all possible cases.
      *
-     * @param {any} thing variavel para testar
+     * @param {any} thing Variable to test.
      * @returns {boolean}
      */
     static isEmptyInteger(thing) {
@@ -100,11 +96,10 @@ class VDStringHelper {
     }
 
     /**
-     * Function isEmptyExceptZero.
-     * Testa se uma variavel é vazia, testando todos os possiveis casos, mas caso a string esteja zerada,
-     * não considera vazio
+     * Checks if a variable is empty, considering all possible cases, but if the string is zero,
+     * it does not consider it empty.
      *
-     * @param {any} thing váriavel para testar
+     * @param {any} thing Variable to test.
      * @returns {boolean}
      */
     static isEmptyExceptZero(thing) {
@@ -112,10 +107,10 @@ class VDStringHelper {
     }
 
     /**
-     * Function hasStr.
-     * Diz se há uma palavra em uma string
-     * @param {string} str String para realizar o search
-     * @param {string} find String para encontrar no primeiro parametro
+     * Checks if a word exists within a string.
+     *
+     * @param {string} str String to search within.
+     * @param {string} find String to find within the first parameter.
      * @returns {boolean}
      */
     static hasStr(str, find){
@@ -123,10 +118,10 @@ class VDStringHelper {
     }
 
     /**
-     * Function removeStrings.
-     * Remove todas as strings da string principal e retorna o valor
-     * @param {string|null} str String para remoção dos caracteres
-     * @param {string[]} strsRemove Array de strings para remover
+     * Removes all specified substrings from the main string and returns the modified value.
+     *
+     * @param {string|null} str String to process.
+     * @param {string[]} strsRemove Array of substrings to remove.
      * @return {string}
      */
     static removeStrings(str, strsRemove) {
@@ -142,10 +137,10 @@ class VDStringHelper {
     }
 
     /**
-     * Function removeChrsNotIn.
-     * Remove todos caracteres da string que não estiverem nos chars enviados
-     * @param {string|null} str String para remoção dos caracteres
-     * @param {string[]} notIn Caracters para ignorar
+     * Removes all characters from the string that are not included in the provided character list.
+     *
+     * @param {string|null} str String to process.
+     * @param {string[]} notIn Characters to keep.
      * @return {string}
      */
     static removeChrsNotIn(str, notIn) {
@@ -157,11 +152,11 @@ class VDStringHelper {
     }
 
     /**
-     * Function removeChrs.
-     * Remove todos os chars da string principal e retorna o valor
-     * @param {string|null} str String para remoção dos caracteres
-     * @param {string} chs Caracters para remover
-     * @param {boolean|undefined|null} notIn Define que irá remover todos os chars que não estiverem na lista
+     * Removes all specified characters from the main string and returns the modified value.
+     *
+     * @param {string|null} str String to process.
+     * @param {string} chs Characters to remove.
+     * @param {boolean|undefined|null} notIn If true, removes all characters **not** in the list.
      * @return {string}
      */
     static removeChrs(str, chs, notIn) {
@@ -175,12 +170,12 @@ class VDStringHelper {
     }
 
     /**
-     * Function pad.
-     * Realiza um PAD de strings
-     * @param {string|int|float} str String para ser realizado o PAD
-     * @param {int} width Tamanho do PAD
-     * @param {string|int|null|undefined} padStr String PAD para concatenar na string principal
-     * @param {string|null|undefined} padType Define o tipo do PAD ("L" - LEFT [Esquerda], "R" - RIGHT [Direita])
+     * Pads a string to a specified length.
+     *
+     * @param {string|int|float} str String to pad.
+     * @param {int} width Total length after padding.
+     * @param {string|int|null|undefined} padStr Character used for padding.
+     * @param {string|null|undefined} padType Padding type ("L" - LEFT, "R" - RIGHT).
      * @returns {string}
      *
      * @ref https://stackoverflow.com/questions/10073699/pad-a-number-with-leading-zeros-in-javascript
@@ -215,9 +210,9 @@ class VDStringHelper {
     }
 
     /**
-     * Function removeMultipleSpaces
-     * Remove multiplos espaços de uma string para apenas 1
-     * @param {string} str Texto a ser manipulado
+     * Removes multiple consecutive spaces, keeping only one.
+     *
+     * @param {string} str Text to process.
      * @returns {string}
      *
      * @ref https://stackoverflow.com/questions/3286874/remove-all-multiple-spaces-in-javascript-and-replace-with-single-space
@@ -227,9 +222,9 @@ class VDStringHelper {
     }
 
     /**
-     * Function removeAccents
-     * Remove todos os acentos de uma string
-     * @param {string} str Texto a ser manipulado
+     * Removes all accents from a string.
+     *
+     * @param {string} str Text to process.
      * @returns {string}
      *
      * @ref https://metring.com.br/javascript-substituir-caracteres-especiais
@@ -239,9 +234,9 @@ class VDStringHelper {
     }
 
     /**
-     * Function removeSpecials
-     * Remove todos os caracteres especiais de uma string
-     * @param {string} str Texto a ser manipulado
+     * Removes all special characters from a string.
+     *
+     * @param {string} str Text to process.
      * @returns {string}
      *
      * @ref https://metring.com.br/javascript-substituir-caracteres-especiais
@@ -254,10 +249,9 @@ class VDStringHelper {
     }
 
     /**
-     * Embaralha uma string
+     * Shuffles a string randomly.
      *
-     * @param {string} str Texto a ser embaralhado
-     *
+     * @param {string} str Text to shuffle.
      * @return {string}
      */
     static stringShuffle(str) {
@@ -268,13 +262,13 @@ class VDStringHelper {
     }
 
     /**
-     * Gera uma senha aleatória
+     * Generates a random password with specific constraints.
      *
-     * @param {null|int} len Tamanho da senha
-     * @param {null|int} minUpperCase Minímo de caracteres maíusculos para gerar a senha
-     * @param {null|int} minLowerCase Minímo de caracteres minúsculos para gerar a senha
-     * @param {null|int} minSpecialChars Minímo de caracteres especiais para gerar a senha
-     * @param {null|int} minNumbers Minímo de caracteres numéricos para gerar a senha
+     * @param {null|int} len Password length.
+     * @param {null|int} minUpperCase Minimum uppercase characters.
+     * @param {null|int} minLowerCase Minimum lowercase characters.
+     * @param {null|int} minSpecialChars Minimum special characters.
+     * @param {null|int} minNumbers Minimum numeric characters.
      * @return {string}
      */
     static generateRandomPassword(len = null, minUpperCase = null, minLowerCase = null, minSpecialChars = null, minNumbers = null) {
@@ -302,7 +296,7 @@ class VDStringHelper {
             return new Array(count).fill(0).map(() => charSet[(Math.floor(Math.random() * (charSet.length - 1)))]).join('');
         };
 
-        // Garantir mínimos para cada tipo de caractere
+        // Ensure minimum required characters for each type
         let password = "";
         if(minUpperCase > 0) {
             password += addCharsFromSet(upperCaseChars, minUpperCase);
@@ -317,25 +311,24 @@ class VDStringHelper {
             password += addCharsFromSet(numberChars, minNumbers);
         }
 
-        // Calcular quantos caracteres são necessários para preencher a senha
+        // Calculate remaining length to fill password
         let remainingLength = len - password.length;
 
-        // Preencher o restante da senha aleatoriamente com todos os caracteres permitidos
+        // Fill remaining password randomly from all allowed characters
         if(remainingLength > 0) {
             password += addCharsFromSet((upperCaseChars + lowerCaseChars + specialChars + numberChars), remainingLength);
         }
 
-        // Embaralhar a senha para que os caracteres mínimos garantidos não estejam todos no início
+        // Shuffle the password to ensure minimum required characters are not all at the start
         password = this.stringShuffle(password);
 
         return password;
     }
 
     /**
-     * Remove tags de uma string HTML/XML
+     * Removes all HTML/XML tags from a string.
      *
-     * @param {string} str String para ser formatada
-     *
+     * @param {string} str String to process.
      * @return {string}
      */
     static removeTags(str) {
@@ -343,10 +336,9 @@ class VDStringHelper {
     }
 
     /**
-     * Normaliza uma mensagem retornada por Inteligência Artificial para o WhatsApp
+     * Normalizes an AI-generated message for WhatsApp formatting.
      *
-     * @param {string} message String para ser formatada
-     *
+     * @param {string} message String to be formatted.
      * @return {string}
      */
     static normalizeMessageIA4Whats(message) {
@@ -359,11 +351,10 @@ class VDStringHelper {
     }
 
     /**
-     * Quebra uma mensagem retornada por Inteligência Artificial em várias mensagens por length.
+     * Splits an AI-generated message into multiple parts based on length.
      *
-     * @param {string} message String para ser dividida
-     * @param {number} maxLength Length máximo para dividir a menságem
-     *
+     * @param {string} message String to be split.
+     * @param {number} maxLength Maximum length per message.
      * @return {array}
      */
     static splitMessageByLength(message, maxLength) {

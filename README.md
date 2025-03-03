@@ -1,30 +1,32 @@
 # Node Helper 🚀
 
-Biblioteca utilitária para projetos Node.js, contendo funções para logs, manipulação de strings, arquivos, integração com GitHub, entre outros.
+🇧🇷 [Leia em Português](README.md)
 
-## 📦 Instalação
+Utility library for Node.js projects, providing functions for logging, string manipulation, file handling, GitHub integration, and more.
 
-### 1️⃣ Instalar via GitHub
+## 📦 Installation
+
+### 1️⃣ Install via GitHub
 ```bash
 npm install git+https://github.com/vitorgd16/node-helper.git
 ```
 
-### 2️⃣ Instalar uma versão fixa com base em uma branch do GitHub
+### 2️⃣ Install a fixed version from a GitHub branch
 ```bash
 npm install git+https://github.com/vitorgd16/node-helper.git#main
 ```
 
-### 3️⃣ Instalar uma versão fixa com base em uma tag do GitHub
+### 3️⃣ Install a fixed version from a GitHub tag
 ```bash
 npm install git+https://github.com/vitorgd16/node-helper.git#refs/tags/1.0.0
 ```
 
 ---
 
-## 🚀 Como Usar
+## 🚀 How to Use
 
-### 📌 Uso do `StringHelper`
-Arquivo: **`dist/string.min.js`**
+### 📌 Using `StringHelper`
+File: **`dist/string.min.js`**
 ```javascript
 const StringHelper = require('node-helper/dist/string.min.js');
 
@@ -34,194 +36,194 @@ console.log(StringHelper.isEmptyDecimal("0.0")); // true
 console.log(StringHelper.isEmptyInteger("0")); // true
 console.log(StringHelper.isEmptyExceptZero("")); // true
 console.log(StringHelper.hasStr("Hello World", "World")); // true
-console.log(StringHelper.removeTags("<b>Texto</b>")); // "Texto"
-console.log(StringHelper.removeSpecials("Olá, Mundo!")); // "Ola Mundo"
+console.log(StringHelper.removeTags("<b>Text</b>")); // "Text"
+console.log(StringHelper.removeSpecials("Hello, World!")); // "Hello World"
 console.log(StringHelper.pad("42", 5, "0", "L")); // "00042"
-console.log(StringHelper.removeMultipleSpaces("Espaço    extra")); // "Espaço extra"
+console.log(StringHelper.removeMultipleSpaces("Extra    space")); // "Extra space"
 console.log(StringHelper.removeAccents("ação")); // "acao"
-console.log(StringHelper.stringShuffle("abcdef")); // Exemplo: "cbadef"
-console.log(StringHelper.generateRandomPassword(10)); // Exemplo: "A1#bC2$dE3"
-console.log(StringHelper.removeStrings("Texto de teste", ["de", " "])); // "Textoteste"
-console.log(StringHelper.removeChrs("Texto", "tx")); // "eo"
-console.log(StringHelper.removeChrsNotIn("Texto", "eo")); // "eo"
-console.log(StringHelper.normalizeMessageIA4Whats("**Negrito** _Itálico_ __Sublinhado__")); // "*Negrito* *Itálico* *Sublinhado*"
-console.log(StringHelper.splitMessageByLength("Mensagem longa com muitas linhas\nLinha1\nLinha2\nLinha3", 20)); // Divide em partes menores
+console.log(StringHelper.stringShuffle("abcdef")); // Example: "cbadef"
+console.log(StringHelper.generateRandomPassword(10)); // Example: "A1#bC2$dE3"
+console.log(StringHelper.removeStrings("Test text", ["of", " "])); // "Testtext"
+console.log(StringHelper.removeChrs("Text", "tx")); // "eo"
+console.log(StringHelper.removeChrsNotIn("Text", "eo")); // "eo"
+console.log(StringHelper.normalizeMessageIA4Whats("**Bold** _Italic_ __Underlined__")); // "*Bold* *Italic* *Underlined*"
+console.log(StringHelper.splitMessageByLength("Long message with multiple lines\nLine1\nLine2\nLine3", 20)); // Splits into smaller parts
 ```
 
-📌 **Funções disponíveis:**
-- `StringHelper.isZero(str)`: Verifica se a string representa o valor zero.
-- `StringHelper.isEmpty(str)`: Verifica se uma string está vazia.
-- `StringHelper.isEmptyDecimal(str)`: Verifica se uma string vazia representa um decimal inválido.
-- `StringHelper.isEmptyInteger(str)`: Verifica se uma string vazia representa um número inteiro inválido.
-- `StringHelper.isEmptyExceptZero(str)`: Verifica se uma string é vazia, mas ignora "0".
-- `StringHelper.hasStr(str, search)`: Verifica se uma string contém outra string.
-- `StringHelper.removeTags(str)`: Remove tags HTML de uma string.
-- `StringHelper.removeSpecials(str)`: Remove caracteres especiais de uma string.
-- `StringHelper.pad(str, width, padStr, padType)`: Faz padding em uma string.
-- `StringHelper.removeMultipleSpaces(str)`: Remove múltiplos espaços consecutivos em uma string.
-- `StringHelper.removeAccents(str)`: Remove acentos de uma string.
-- `StringHelper.stringShuffle(str)`: Embaralha uma string aleatoriamente.
-- `StringHelper.generateRandomPassword(len, minUpperCase, minLowerCase, minSpecialChars, minNumbers)`: Gera uma senha aleatória respeitando critérios mínimos.
-- `StringHelper.removeStrings(str, strsRemove)`: Remove todas as strings informadas da string principal.
-- `StringHelper.removeChrs(str, chs, notIn)`: Remove caracteres específicos de uma string.
-- `StringHelper.removeChrsNotIn(str, notIn)`: Remove todos os caracteres que não estiverem na lista informada.
-- `StringHelper.normalizeMessageIA4Whats(message)`: Normaliza uma mensagem formatada por IA para o WhatsApp, convertendo **negrito**, _itálico_ e __sublinhado__ para a formatação do WhatsApp.
-- `StringHelper.splitMessageByLength(message, maxLength)`: Divide uma mensagem em partes menores, respeitando o `maxLength`, útil para envio de mensagens no WhatsApp.
+📌 **Available Functions:**
+- `StringHelper.isZero(str)`: Checks if the string represents zero.
+- `StringHelper.isEmpty(str)`: Checks if a string is empty.
+- `StringHelper.isEmptyDecimal(str)`: Checks if a string represents an invalid decimal.
+- `StringHelper.isEmptyInteger(str)`: Checks if a string represents an invalid integer.
+- `StringHelper.isEmptyExceptZero(str)`: Checks if a string is empty but ignores "0".
+- `StringHelper.hasStr(str, search)`: Checks if a string contains another string.
+- `StringHelper.removeTags(str)`: Removes HTML tags from a string.
+- `StringHelper.removeSpecials(str)`: Removes special characters from a string.
+- `StringHelper.pad(str, width, padStr, padType)`: Pads a string.
+- `StringHelper.removeMultipleSpaces(str)`: Removes multiple consecutive spaces in a string.
+- `StringHelper.removeAccents(str)`: Removes accents from a string.
+- `StringHelper.stringShuffle(str)`: Randomly shuffles a string.
+- `StringHelper.generateRandomPassword(len, minUpperCase, minLowerCase, minSpecialChars, minNumbers)`: Generates a random password with specific constraints.
+- `StringHelper.removeStrings(str, strsRemove)`: Removes specific substrings from a string.
+- `StringHelper.removeChrs(str, chs, notIn)`: Removes specific characters from a string.
+- `StringHelper.removeChrsNotIn(str, notIn)`: Removes all characters that are not in the specified list.
+- `StringHelper.normalizeMessageIA4Whats(message)`: Normalizes AI-generated messages for WhatsApp formatting.
+- `StringHelper.splitMessageByLength(message, maxLength)`: Splits a message into smaller parts based on length.
 
 ---
 
-### 📌 Uso do `FileHelper`
-Arquivo: **`dist/file.min.js`**
+### 📌 Using `FileHelper`
+File: **`dist/file.min.js`**
 ```javascript
 const FileHelper = require('node-helper/dist/file.min.js');
 
-console.log(FileHelper.getExtension("arquivo.txt")); // "txt"
+console.log(FileHelper.getExtension("file.txt")); // "txt"
 console.log(FileHelper.humanFileSize(1024)); // "1 KiB"
-console.log(FileHelper.getFileSize("meuarquivo.txt")); // Retorna o tamanho do arquivo em bytes
-FileHelper.appendStringToFile("log.txt", "Nova entrada de log\n");
-FileHelper.createFolder("novaPasta");
+console.log(FileHelper.getFileSize("myfile.txt")); // Returns file size in bytes
+FileHelper.appendStringToFile("log.txt", "New log entry\n");
+FileHelper.createFolder("newFolder");
 ```
 
-📌 **Funções disponíveis:**
-- `FileHelper.getExtension(filename)`: Retorna a extensão do arquivo.
-- `FileHelper.humanFileSize(bytes, si, dp)`: Converte tamanho de arquivo em bytes para uma leitura mais fácil.
-- `FileHelper.getFileSize(filePath)`: Obtém o tamanho de um arquivo em bytes.
-- `FileHelper.appendStringToFile(filePath, content)`: Adiciona uma string a um arquivo existente.
-- `FileHelper.createFolder(folderPath)`: Cria uma nova pasta, se não existir.
+📌 **Available Functions:**
+- `FileHelper.getExtension(filename)`: Returns the file extension.
+- `FileHelper.humanFileSize(bytes, si, dp)`: Converts file size in bytes to a readable format.
+- `FileHelper.getFileSize(filePath)`: Gets the size of a file in bytes.
+- `FileHelper.appendStringToFile(filePath, content)`: Appends a string to an existing file.
+- `FileHelper.createFolder(folderPath)`: Creates a new folder if it does not exist.
 
 ---
 
-### 📌 Uso do `DBHelper`
-Arquivo: **`dist/db.min.js`**
+### 📌 Using `DBHelper`
+File: **`dist/db.min.js`**
 ```javascript
 const DBHelper = require('node-helper/dist/db.min.js');
 
 console.log(DBHelper.msEscapeString("O'Reilly")); // "O''Reilly"
-console.log(DBHelper.generateGUID()); // Exemplo: "550e8400-e29b-41d4-a716-446655440000"
+console.log(DBHelper.generateGUID()); // Example: "550e8400-e29b-41d4-a716-446655440000"
 ```
 
-📌 **Funções disponíveis:**
-- `DBHelper.msEscapeString(str)`: Protege uma string contra SQL Injection.
-- `DBHelper.generateGUID()`: Gera um GUID aleatório.
+📌 **Available Functions:**
+- `DBHelper.msEscapeString(str)`: Escapes a string to prevent SQL Injection.
+- `DBHelper.generateGUID()`: Generates a random GUID.
 
 ---
 
-### 📌 Uso do `DateHelper`
-Arquivo: **`dist/date.min.js`**
+### 📌 Using `DateHelper`
+File: **`dist/date.min.js`**
 ```javascript
 const DateHelper = require('node-helper/dist/date.min.js');
 
 console.log(DateHelper.getNow("America/Sao_Paulo", "YYYY-MM-DD HH:mm:ss")); // "2024-03-05 12:00:00"
 ```
 
-📌 **Funções disponíveis:**
-- `DateHelper.getNow(timezone, format)`: Retorna a data/hora atual no timezone e formato especificados.
+📌 **Available Functions:**
+- `DateHelper.getNow(timezone, format)`: Returns the current date/time in the specified timezone and format.
 
 ---
 
-### 📌 Uso do `GenericHelper`
-Arquivo: **`dist/generic.min.js`**
+### 📌 Using `GenericHelper`
+File: **`dist/generic.min.js`**
 ```javascript
 const GenericHelper = require('node-helper/dist/generic.min.js');
 
-await GenericHelper.delay(1000); // Aguarda 1 segundo
-console.log(GenericHelper.returnStackTrace(new Error("Erro Teste"))); // Retorna o stack trace do erro
+await GenericHelper.delay(1000); // Waits for 1 second
+console.log(GenericHelper.returnStackTrace(new Error("Test Error"))); // Returns the stack trace of an error
 ```
 
-📌 **Funções disponíveis:**
-- `GenericHelper.delay(ms)`: Aguarda um tempo específico em milissegundos.
-- `GenericHelper.returnStackTrace(error)`: Retorna o stack trace de uma exceção.
+📌 **Available Functions:**
+- `GenericHelper.delay(ms)`: Waits for a specified time in milliseconds.
+- `GenericHelper.returnStackTrace(error)`: Returns the stack trace of an exception.
 
 ---
 
-### 📌 Uso do `GithubHelper`
-Arquivo: **`dist/github.min.js`**
+### 📌 Using `GithubHelper`
+File: **`dist/github.min.js`**
 ```javascript
 const GithubHelper = require('node-helper/dist/github.min.js');
 
-GithubHelper.uploadFile("meu-repo", "main", "arquivo.txt", "remote/arquivo.txt", "Commit message");
+GithubHelper.uploadFile("my-repo", "main", "file.txt", "remote/file.txt", "Commit message");
 ```
 
-📌 **Funções disponíveis:**
-- `GithubHelper.uploadFile(repository, branch, localFilePath, remoteFilePath, commitMessage)`: Faz upload de um arquivo para um repositório GitHub.
+📌 **Available Functions:**
+- `GithubHelper.uploadFile(repository, branch, localFilePath, remoteFilePath, commitMessage)`: Uploads a file to a GitHub repository.
 
 ---
 
-### 📌 Uso do `ObjectHelper`
-Arquivo: **`dist/object.min.js`**
+### 📌 Using `ObjectHelper`
+File: **`dist/object.min.js`**
 ```javascript
 const ObjectHelper = require('node-helper/dist/object.min.js');
 
 console.log(ObjectHelper.isArray([1,2,3])); // true
 console.log(ObjectHelper.isObject({key: "value"})); // true
 console.log(ObjectHelper.convertArrayToObject(["a", "b", "c"])); // {0: "a", 1: "b", 2: "c"}
-console.log(ObjectHelper.copyObject({a:1})); // {a:1} (cópia independente)
+console.log(ObjectHelper.copyObject({a:1})); // {a:1} (independent copy)
 ```
 
-📌 **Funções disponíveis:**
-- `ObjectHelper.isArray(obj)`: Verifica se um objeto é um array.
-- `ObjectHelper.isObject(obj)`: Verifica se um objeto é um objeto válido.
-- `ObjectHelper.isArrayOrObject(obj)`: Verifica se um valor é um array ou objeto.
-- `ObjectHelper.convertArrayToObject(arr)`: Converte um array para um objeto.
-- `ObjectHelper.copyObject(obj)`: Cria uma cópia profunda de um objeto ou array.
+📌 **Available Functions:**
+- `ObjectHelper.isArray(obj)`: Checks if a value is an array.
+- `ObjectHelper.isObject(obj)`: Checks if a value is a valid object.
+- `ObjectHelper.isArrayOrObject(obj)`: Checks if a value is an array or object.
+- `ObjectHelper.convertArrayToObject(arr)`: Converts an array to an object.
+- `ObjectHelper.copyObject(obj)`: Creates a deep copy of an object or array.
 
 ---
 
-### 📌 Uso do `LogHelper`
-Arquivo: **`dist/log.min.js`**
+### 📌 Using `LogHelper`
+File: **`dist/log.min.js`**
 ```javascript
 const LogHelper = require('node-helper/dist/log.min.js');
 
-LogHelper.addInfo("Iniciando sistema...");
-LogHelper.addWarning("Cuidado, algo pode dar errado!");
-LogHelper.addError("Erro crítico encontrado!");
+LogHelper.addInfo("Starting system...");
+LogHelper.addWarning("Warning, something might go wrong!");
+LogHelper.addError("Critical error encountered!");
 ```
 
-📌 **Funções disponíveis:**
-- `LogHelper.addInfo(message)`: Adiciona um log de informação.
-- `LogHelper.addWarning(message)`: Adiciona um log de aviso.
-- `LogHelper.addError(message)`: Adiciona um log de erro.
-- `LogHelper.addException(error)`: Adiciona uma exceção ao log.
-- `LogHelper.garbageCollector(true)`: Remove logs antigos com base na configuração.
+📌 **Available Functions:**
+- `LogHelper.addInfo(message)`: Adds an informational log entry.
+- `LogHelper.addWarning(message)`: Adds a warning log entry.
+- `LogHelper.addError(message)`: Adds an error log entry.
+- `LogHelper.addException(error)`: Adds an exception log entry.
+- `LogHelper.garbageCollector(true)`: Removes old logs based on configuration.
 
 ---
 
-### 📌 Uso do `NumberHelper`
-Arquivo: **`dist/number.min.js`**
+### 📌 Using `NumberHelper`
+File: **`dist/number.min.js`**
 ```javascript
 const NumberHelper = require('node-helper/dist/number.min.js');
 
-console.log(NumberHelper.getRandomInt(1, 100)); // Número aleatório entre 1 e 100
+console.log(NumberHelper.getRandomInt(1, 100)); // Random number between 1 and 100
 console.log(NumberHelper.number_format(12345.678, 2, '.', ',')); // "12,345.68"
 console.log(NumberHelper.onlyNumbers("R$ 1.234,56")); // "123456"
 console.log(NumberHelper.isNegative("-123")); // true
 console.log(NumberHelper.toInteger("R$ 1.234,56")); // 1234
 ```
 
-📌 **Funções disponíveis:**
-- `NumberHelper.getRandomInt(min, max)`: Retorna um número inteiro aleatório.
-- `NumberHelper.number_format(number, decimals, dec_point, thousands_sep)`: Formata um número como no PHP.
-- `NumberHelper.onlyNumbers(str)`: Remove todos os caracteres não numéricos de uma string.
-- `NumberHelper.isNegative(str)`: Verifica se um número é negativo.
-- `NumberHelper.toInteger(str)`: Converte uma string numérica em um inteiro válido.
-- `NumberHelper.formatNumber(num, decimalSeparatorFrom, decimalSeparatorTo, thousandSeparatorTo, prefix, suffix, decimalPlaces, allowNegative)`: Formata um número de acordo com especificações.
+📌 **Available Functions:**
+- `NumberHelper.getRandomInt(min, max)`: Returns a random integer between the given range.
+- `NumberHelper.number_format(number, decimals, dec_point, thousands_sep)`: Formats a number similar to PHP's `number_format()`.
+- `NumberHelper.onlyNumbers(str)`: Removes all non-numeric characters from a string.
+- `NumberHelper.isNegative(str)`: Checks if a number is negative.
+- `NumberHelper.toInteger(str)`: Converts a numeric string into a valid integer.
+- `NumberHelper.formatNumber(num, decimalSeparatorFrom, decimalSeparatorTo, thousandSeparatorTo, prefix, suffix, decimalPlaces, allowNegative)`: Formats a number according to specific requirements.
 
 ---
 
-## 📦 Configuração de Variáveis de Ambiente (.env)
+## 📦 Environment Variables Configuration (.env)
 
-O projeto utiliza um arquivo `.env` para armazenar configurações sensíveis, como tokens de API e credenciais. Certifique-se de criar um arquivo `.env` na raiz do projeto e preencher as variáveis conforme necessário.
+The project uses a `.env` file to store sensitive configurations such as API tokens and credentials. Ensure you create a `.env` file in the project root and populate it accordingly.
 
-### 📄 Exemplo de `.env`:
+### 📄 Example `.env` file:
 ```ini
-# Configurações do GitHub
-VD_GITHUB_TOKEN=seu-token-aqui
-VD_GITHUB_OWNER=seu-usuario
+# GitHub Configuration
+VD_GITHUB_TOKEN=your-token-here
+VD_GITHUB_OWNER=your-username
 VD_GITHUB_RETRYS=3
-VD_GITHUB_AUTHOR=Seu Nome
-VD_GITHUB_EMAIL_AUTHOR=seu-email@exemplo.com
+VD_GITHUB_AUTHOR=Your Name
+VD_GITHUB_EMAIL_AUTHOR=your-email@example.com
 
-# Configurações de Log
+# Log Configuration
 VD_LOG_FOLDERNAME=logs
 VD_LOG_EXTENSION=.log
 VD_LOG_TIMEZONE=America/Sao_Paulo
@@ -233,42 +235,41 @@ VD_LOG_GC_DIVISOR=100
 VD_LOG_AUTO_SEND_GITHUB=true
 ```
 
-### 🔹 Descrição das variáveis:
+### 🔹 Variable Descriptions:
 #### **GitHub**
-- `VD_GITHUB_TOKEN`: Token de autenticação para integração com o GitHub.
-- `VD_GITHUB_OWNER`: Nome do usuário ou organização no GitHub.
-- `VD_GITHUB_RETRYS`: Número máximo de tentativas ao tentar fazer upload de arquivos.
-- `VD_GITHUB_AUTHOR`: Nome do autor do commit.
-- `VD_GITHUB_EMAIL_AUTHOR`: E-mail do autor do commit.
+- `VD_GITHUB_TOKEN`: Authentication token for GitHub integration.
+- `VD_GITHUB_OWNER`: GitHub user or organization name.
+- `VD_GITHUB_RETRYS`: Maximum number of retry attempts when uploading files.
+- `VD_GITHUB_AUTHOR`: Commit author name.
+- `VD_GITHUB_EMAIL_AUTHOR`: Commit author email.
 
 #### **Logs**
-- `VD_LOG_FOLDERNAME`: Nome da pasta onde os logs serão armazenados.
-- `VD_LOG_EXTENSION`: Extensão dos arquivos de log.
-- `VD_LOG_TIMEZONE`: Timezone utilizado para registrar os logs.
-- `VD_LOG_MAXSIZEMB_PER_FILE`: Tamanho máximo de cada arquivo de log (em MB).
-- `VD_LOG_LIMIT_UNITY`: Unidade de tempo para retenção de logs (`days`, `hours`, `minutes`, etc.).
-- `VD_LOG_LIMIT_VALUE`: Quantidade de unidades de tempo antes que os logs sejam excluídos.
-- `VD_LOG_GC_PROBABILITY`: Probabilidade de ativação do coletor de lixo dos logs.
-- `VD_LOG_GC_DIVISOR`: Fator divisor para o cálculo da coleta de lixo.
-- `VD_LOG_AUTO_SEND_GITHUB`: Define se os logs serão enviados automaticamente para o GitHub (`true` ou `false`).
+- `VD_LOG_FOLDERNAME`: Folder name where logs are stored.
+- `VD_LOG_EXTENSION`: Log file extension.
+- `VD_LOG_TIMEZONE`: Timezone used for logging.
+- `VD_LOG_MAXSIZEMB_PER_FILE`: Maximum log file size (in MB).
+- `VD_LOG_LIMIT_UNITY`: Time unit for log retention (`days`, `hours`, `minutes`, etc.).
+- `VD_LOG_LIMIT_VALUE`: Number of time units before logs are deleted.
+- `VD_LOG_GC_PROBABILITY`: Probability of triggering log garbage collection.
+- `VD_LOG_GC_DIVISOR`: Divisor for log garbage collection calculation.
+- `VD_LOG_AUTO_SEND_GITHUB`: Determines if logs should be automatically uploaded to GitHub (`true` or `false`).
 
 ---
 
-## 📜 Scripts Disponíveis
+## 📜 Available Scripts
 
-| Comando         | Descrição |
+| Command         | Description |
 |----------------|-------------|
-| `npm run start` | Executa a biblioteca (se aplicável). |
-| `npm run start:prod` | Roda em modo produção. |
-| `npm run build` | Minifica e prepara os arquivos para distribuição. |
+| `npm run start` | Runs the library (if applicable). |
+| `npm run start:prod` | Runs in production mode. |
+| `npm run build` | Minifies and prepares files for distribution. |
 
 ---
 
-## 🤝 Contribuindo
-Se quiser contribuir, sinta-se livre para abrir **issues** e **pull requests** no repositório!
+## 🤝 Contributing
+If you want to contribute, feel free to open **issues** and **pull requests** in the repository!
 
 ---
 
-## 📜 Licença
-Este projeto está sob a licença **MIT**.
-
+## 📜 License
+This project is licensed under the **MIT** license.

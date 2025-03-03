@@ -1,9 +1,8 @@
 class VDObjectHelper {
     /**
-     * Function isArray
-     * Determina se uma variavel é um array
+     * Determines if a variable is an array.
      *
-     * @param obj Variavel para ser testada
+     * @param obj Variable to test.
      * @returns {boolean}
      */
     static isArray(obj) {
@@ -11,10 +10,9 @@ class VDObjectHelper {
     }
 
     /**
-     * Function isObject
-     * Determina se uma variavel é um objeto
+     * Determines if a variable is an object.
      *
-     * @param obj Variavel para ser testada
+     * @param obj Variable to test.
      * @returns {boolean}
      *
      * @ref https://stackoverflow.com/questions/4775722/how-to-check-if-an-object-is-an-array
@@ -25,10 +23,9 @@ class VDObjectHelper {
     }
 
     /**
-     * Function isArrayOrObject
-     * Determina se uma variavel é um array ou um objeto
+     * Determines if a variable is an array or an object.
      *
-     * @param obj Variavel para ser testada
+     * @param obj Variable to test.
      * @returns {boolean}
      *
      * @ref https://stackoverflow.com/questions/4775722/how-to-check-if-an-object-is-an-array
@@ -39,11 +36,9 @@ class VDObjectHelper {
     }
 
     /**
-     * Function convertArrayToObject
-     * Converte um array para objeto
+     * Converts an array into an object.
      *
-     * @param {Array} arr Array para ser convertido
-     *
+     * @param {Array} arr Array to be converted.
      * @return {Object|null}
      */
     static convertArrayToObject(arr) {
@@ -58,10 +53,9 @@ class VDObjectHelper {
     }
 
     /**
-     * Cria um novo objeto ou array sem referência do anterior
+     * Creates a deep copy of an object or array.
      *
-     * @param {Object|Array} obj Objeto a ser copiado
-     *
+     * @param {Object|Array} obj Object to be copied.
      * @return {Object|Array}
      */
     static copyObject(obj) {

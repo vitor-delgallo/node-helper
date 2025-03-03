@@ -2,14 +2,13 @@ const VDStringHelper = require('./string.js');
 
 class VDNumberHelper {
     /**
-     * Function getRandomInt.
-     * Obtem um número randomico inteiro
+     * Generates a random integer.
      *
-     * @param {int} min Valor minimo
-     * @param {int|null|undefined} max Valor máximo
-     * @returns {int} Valor randomico
+     * @param {int} min Minimum value.
+     * @param {int|null|undefined} max Maximum value.
+     * @returns {int} Random integer.
      *
-     * @ref https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+     * @ref https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
      */
     static getRandomInt(min, max) {
         if(VDStringHelper.isEmpty(max) && !VDStringHelper.isZero(max)) {
@@ -32,16 +31,15 @@ class VDNumberHelper {
     }
 
     /**
-     * Function number_format.
-     * Formata um decimal em JS equivalente ao number_format do PHP
-     * @param {int|string} number Numero para ser formatado
-     * @param {int} decimals Numero de casas decimais permitidas
-     * @param {string} dec_point Separador de milhar
-     * @param {string} thousands_sep Separador de decimais
-     * @return {string} Número formatado
+     * Formats a decimal in JS similar to PHP's number_format.
      *
-     * @ref https://stackoverflow.com/questions/2901102/how-to-print-a-number-with-commas-as-thousands-separators-in-javascript
-     * @ref http://jsfiddle.net/drewnoakes/xc3qh35z/
+     * @param {int|string} number Number to be formatted.
+     * @param {int} decimals Number of decimal places allowed.
+     * @param {string} dec_point Decimal separator.
+     * @param {string} thousands_sep Thousands separator.
+     * @return {string} Formatted number.
+     *
+     * @ref https://stackoverflow.com/questions/2901102
      */
     static number_format(number, decimals, dec_point, thousands_sep) {
         if(VDStringHelper.isEmptyDecimal(number)) return "0";
@@ -67,13 +65,10 @@ class VDNumberHelper {
     }
 
     /**
-     * Function onlyNumbers
-     * Retorna apenas os numeros de uma string
-     * @param {string|undefined|null} str para deixar apenas numeros
-     * @return {string}
+     * Extracts only numbers from a string.
      *
-     * https://stackoverflow.com/questions/185510/how-can-i-concatenate-regex-literals-in-javascript
-     * https://stackoverflow.com/questions/4460595/jquery-filter-numbers-of-a-string
+     * @param {string|undefined|null} str String to extract numbers from.
+     * @return {string}
      */
     static onlyNumbers(str) {
         if(str === undefined || str === null) return "";
@@ -81,9 +76,9 @@ class VDNumberHelper {
     }
 
     /**
-     * Function isNegative.
-     * Testa se existe o caracter de numero negativo
-     * @param {string|int|float} str String para testar se existe o simbolo de negativo
+     * Checks if a string has a negative number indicator.
+     *
+     * @param {string|int|float} str String to check for a negative symbol.
      * @return {boolean}
      */
     static isNegative (str) {
@@ -92,9 +87,9 @@ class VDNumberHelper {
     }
 
     /**
-     * Function toInteger
-     * Retorna um inteiro válido de acordo com uma string
-     * @param {string|undefined|null} str para deixar apenas numeros
+     * Converts a string into a valid integer.
+     *
+     * @param {string|undefined|null} str String to extract numbers from.
      * @return {int}
      */
     static toInteger(str) {
@@ -111,18 +106,18 @@ class VDNumberHelper {
     }
 
     /**
-     * Function formatNumber.
-     * Formata um número para o padrão desejado
-     * @param {string|int|float|null|undefined} num Numero para ser formatado
-     * @param {string|null|undefined} decimalSeparatorFrom Divisor de casas decimais do numero
-     * @param {string|null|undefined} decimalSeparatorTo Divisor de casas decimais ao retornar o valor
-     * @param {string|null|undefined} thousandSeparatorTo Define o separador de milhar caso tenha necessidade
-     * @param {string|null|undefined} prefix Prefixo do numero (Ex: R$)
-     * @param {string|null|undefined} suffix Sufixo do numero (Ex: %)
-     * @param {int|null|undefined} decimalPlaces Numero de casas decimais permitidas depois da virgula
-     *                                (NULL se não houver limite, 0 se apenas números inteiros forem permitidos)
-     * @param {boolean|null|undefined} allowNegative Define se o numero pode ser negativo ou não
-     * @return {string}
+     * Formats a number according to the desired pattern.
+     *
+     * @param {string|int|float|null|undefined} num Number to be formatted.
+     * @param {string|null|undefined} decimalSeparatorFrom Decimal separator of the input number.
+     * @param {string|null|undefined} decimalSeparatorTo Decimal separator in the formatted output.
+     * @param {string|null|undefined} thousandSeparatorTo Thousands separator if needed.
+     * @param {string|null|undefined} prefix Number prefix (e.g., `$`, `R$`).
+     * @param {string|null|undefined} suffix Number suffix (e.g., `%`).
+     * @param {int|null|undefined} decimalPlaces Number of decimal places allowed after the separator.
+     *                                (NULL if no limit, 0 if only integers are allowed)
+     * @param {boolean|null|undefined} allowNegative Defines whether the number can be negative.
+     * @return {string} Formatted number as a string.
      */
     static formatNumber (
         num, decimalSeparatorFrom, decimalSeparatorTo, thousandSeparatorTo,

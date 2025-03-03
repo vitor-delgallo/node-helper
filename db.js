@@ -2,10 +2,10 @@ const crypto = require('crypto');
 
 class VDDBHelper {
     /**
-     * Realiza tratativas contra SQL Injection para os parâmetros a serem inseridos no DB
+     * Escapes a string to prevent SQL Injection when inserting parameters into the database.
      *
-     * @param {string} str Parâmetro para realizar o escape
-     * @returns {string|null}
+     * @param {string} str Parameter to escape.
+     * @returns {string|null} Escaped string or `null` if input is `null` or `undefined`.
      */
     static msEscapeString(str) {
         if (str === null || str === undefined) return null;
@@ -20,21 +20,21 @@ class VDDBHelper {
             /[\x0e-\x1f]/g   // ASCII 14-31
         ];
 
-        // Remove caracteres indesejados
+        // Removes unwanted characters
         for (const regex of nonDisplayables) {
             str = String(str).replace(regex, '');
         }
 
-        // Substitui caracteres de escape
+        // Replaces escape characters
         str = String(str).replace(new RegExp(`'`, 'g'), `''`);
 
         return str;
     }
 
     /**
-     * Gera um GUID randomico
+     * Generates a random GUID.
      *
-     * @returns {string}
+     * @returns {string} Randomly generated GUID.
      */
     static generateGUID() {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
