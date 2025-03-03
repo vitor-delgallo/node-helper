@@ -2,12 +2,12 @@ const moment = require('moment-timezone');
 
 class VDDateHelper {
     /**
-     * Obtêm a Data/Hora de agora em objeto Moment ou no formato desejado
+     * Retrieves the current Date/Time in a Moment object or the desired format.
      *
-     * @param {string} timezone Timezone desejado para obter a Data/Hora
-     * @param {string|null} format Formato desejado para obter a Data/Hora
+     * @param {string} timezone Desired timezone for the Date/Time.
+     * @param {string|null} format Desired format for the Date/Time output.
      *
-     * @returns {*}
+     * @returns {*} Returns a Moment object if `format` is `null`, otherwise returns a formatted string.
      */
     static getNow(timezone, format = null) {
         let now = moment().tz(timezone);

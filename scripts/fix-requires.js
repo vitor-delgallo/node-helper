@@ -19,7 +19,7 @@ function fixRequiresInFile(filePath) {
     // Se houve alteração, sobrescreve o arquivo
     if (content !== updatedContent) {
         fs.writeFileSync(filePath, updatedContent, "utf8");
-        console.log(`✅ Corrigido: ${filePath}`);
+        console.log(`✅ Fixed: ${filePath}`);
     }
 }
 
@@ -33,7 +33,7 @@ if (fs.existsSync(distFolder)) {
         }
     });
 
-    console.log("🎉 Todos os arquivos foram corrigidos!");
+    console.log("🎉 All files have been corrected!");
 } else {
-    console.log("⚠️ A pasta 'dist' não existe. Execute primeiro 'npm run build'.");
+    console.log("⚠️ The 'dist' folder does not exist. Run 'npm run build' first.");
 }

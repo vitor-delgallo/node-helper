@@ -5,9 +5,9 @@ require('dotenv').config();
 
 class VDGithubHelper {
     /**
-     * Obtêm as configurações padrão para integração com o GitHub.
+     * Retrieves the default configurations for GitHub integration.
      *
-     * @returns {Object} Objeto contendo informações como token e configurações de commit.
+     * @returns {Object} Object containing information such as token and commit settings.
      */
     static get CONFIGS() {
         return {
@@ -21,28 +21,27 @@ class VDGithubHelper {
         };
     }
 
-    // Inicializa uma instância do Octokit para chamadas à API do GitHub
+    // Initializes an instance of Octokit for GitHub API calls
     static octokit = new Octokit({auth: this.CONFIGS.token});
 
     /**
-     * Faz o upload de um arquivo local para um repositório no GitHub.
+     * Uploads a local file to a repository on GitHub.
      *
-     * @param {string} repository Nome do repositório no Git.
-     * @param {string} branch Nome da branch para o commit
-     * @param {string} localFilePath Caminho do arquivo local a ser enviado.
-     * @param {string} localFilePath Caminho do arquivo local a ser enviado.
-     * @param {string} remoteFilePath Caminho remoto no repositório GitHub onde o arquivo será salvo.
-     * @param {string|null} commitMessage Mensagem para envio do commit.
-     * @param {number} [nTentativa=1] Número da tentativa atual (para reenvio em caso de erro 409).
-     * @returns {Promise<boolean>} Retorna `true` se o upload for bem-sucedido, `false` caso contrário.
+     * @param {string} repository Name of the GitHub repository.
+     * @param {string} branch Branch name for the commit.
+     * @param {string} localFilePath Path to the local file to be uploaded.
+     * @param {string} remoteFilePath Remote path in the GitHub repository where the file will be saved.
+     * @param {string|null} commitMessage Commit message.
+     * @param {number} [attempt=1] Current attempt number (for retrying in case of error 409).
+     * @returns {Promise<boolean>} Returns `true` if the upload is successful, `false` otherwise.
      */
     static async uploadFile(repository, branch, localFilePath, remoteFilePath, commitMessage = null, nTentativa = 1) {
         try {
-            // Lê o conteúdo do arquivo local
+            // Reads the local file content
             const fileContent = fs.readFileSync(localFilePath, "utf8");
             const base64Content = Buffer.from(fileContent).toString("base64");
 
-            // Tenta obter o conteúdo do arquivo remoto para verificar se ele já existe
+            // Attempts to get the remote file content to check if it already exists
             let sha;
             try {
                 const {data} = await this.octokit.repos.getContent({
@@ -53,38 +52,38 @@ class VDGithubHelper {
                 });
                 sha = data.sha;
             } catch (error) {
-                // Se o erro for 404, o arquivo não existe e iremos criá-lo
+                // If the error is 404, the file does not exist, and we will create it
                 if (error.status !== 404) {
                     console.error("Erro ao verificar existência do arquivo:", error);
                     return false;
                 }
             }
 
-            // Cria ou atualiza o arquivo remoto incluindo as informações do commit
+            // Creates or updates the remote file including commit information
             await this.octokit.repos.createOrUpdateFileContents({
                 owner: this.CONFIGS.owner,
                 repo: repository,
                 path: remoteFilePath,
                 message: commitMessage ?? (
                     sha
-                        ? "Atualizando arquivo via integração automatizada"
-                        : "Criando arquivo via integração automatizada"
+                        ? "Updating file via automated integration"
+                        : "Creating file via automated integration"
                 ),
                 content: base64Content,
-                sha: sha,      // se o arquivo não existir, sha será undefined
+                sha: sha, // If the file does not exist, sha will be undefined
                 branch: branch,
                 committer: this.CONFIGS.commitAuthor,
                 author: this.CONFIGS.commitAuthor
             });
 
-            console.log("Arquivo enviado com sucesso!");
+            console.log("File successfully uploaded!");
             return true;
         } catch (error) {
             if (nTentativa <= this.CONFIGS.maxTentativas && (error.status === 409)) {
                 await VDGenericHelper.delay(300);
                 return await this.uploadFile(repository, branch, localFilePath, remoteFilePath, commitMessage, (nTentativa + 1));
             } else {
-                console.error("Erro ao enviar arquivo:", error);
+                console.error("Error uploading file:", error);
             }
             return false;
         }

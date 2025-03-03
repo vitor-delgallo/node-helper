@@ -1,17 +1,19 @@
 class VDGenericHelper {
     /**
-     * Aguarda uma certa quantidade de tempo para realizar a próxima execução
+     * Delays execution for a specified amount of time.
      *
-     * @param {number} ms Milisegundos para serem aguardados
+     * @param {number} ms Time to wait in milliseconds.
+     * @returns {Promise<void>} Resolves after the delay.
      */
     static delay(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     /**
-     * Obtêm o stack trace de uma Exception
+     * Retrieves the stack trace of an exception.
      *
-     * @param error Exception para obter o stack
+     * @param {Error} error Exception to retrieve the stack trace from.
+     * @returns {string} Stack trace or string representation of the error.
      */
     static returnStackTrace(error) {
         return error.stack || error.toString();
