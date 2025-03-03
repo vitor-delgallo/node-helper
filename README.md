@@ -210,6 +210,55 @@ console.log(NumberHelper.toInteger("R$ 1.234,56")); // 1234
 
 ---
 
+### 📌 Using `VDSOHelper`
+File: **`dist/so.min.js`**
+```javascript
+const VDSOHelper = require('node-helper/dist/so.min.js');
+
+VDSOHelper.getServerStatus().then(status => console.log(status));
+VDSOHelper.getSystemCpuUsage().then(cpuUsage => console.log(cpuUsage)); // 30.5
+```
+
+📌 **Available Functions:**
+- `VDSOHelper.getServerStatus()`: Retrieves detailed information about system and process status.
+
+    #### 📋 Example Output:
+    ```json
+    {
+        "system": {
+            "memory": {
+                "total": "16 GB",
+                "used": "8 GB",
+                "free": "8 GB",
+                "usage": "50 %"
+            },
+            "cpu": {
+                "loadAverage": "6.00",
+                "cpuCount": 4,
+                "overloaded": true
+            },
+            "uptime": "5 hours"
+        },
+        "process": {
+            "cpu": {
+                "usage": "12.30 %"
+            },
+            "memory": {
+                "used": "200 MB",
+                "usage": "1.25 %"
+            },
+            "uptime": "30 minutes"
+        },
+        "disk": {
+            "total": "500 GB",
+            "free": "120 GB"
+        }
+    }
+    ```
+- `VDSOHelper.getSystemCpuUsage()`: Calculates the total system CPU usage in percentage.
+
+---
+
 ## 📦 Environment Variables Configuration (.env)
 
 The project uses a `.env` file to store sensitive configurations such as API tokens and credentials. Ensure you create a `.env` file in the project root and populate it accordingly.

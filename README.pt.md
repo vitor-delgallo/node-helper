@@ -210,6 +210,55 @@ console.log(NumberHelper.toInteger("R$ 1.234,56")); // 1234
 
 ---
 
+### 📌 Uso do `VDSOHelper`
+Arquivo: **`dist/so.min.js`**
+```javascript
+const VDSOHelper = require('node-helper/dist/so.min.js');
+
+VDSOHelper.getServerStatus().then(status => console.log(status));
+VDSOHelper.getSystemCpuUsage().then(cpuUsage => console.log(cpuUsage)); // 30.5
+```
+
+📌 **Funções Disponíveis:**
+- `VDSOHelper.getServerStatus()`: Obtém informações detalhadas sobre o sistema e o status do processo.
+
+  #### 📋 Example Output:
+    ```json
+    {
+        "system": {
+            "memory": {
+                "total": "16 GB",
+                "used": "8 GB",
+                "free": "8 GB",
+                "usage": "50 %"
+            },
+            "cpu": {
+                "loadAverage": "6.00",
+                "cpuCount": 4,
+                "overloaded": true
+            },
+            "uptime": "5 hours"
+        },
+        "process": {
+            "cpu": {
+                "usage": "12.30 %"
+            },
+            "memory": {
+                "used": "200 MB",
+                "usage": "1.25 %"
+            },
+            "uptime": "30 minutes"
+        },
+        "disk": {
+            "total": "500 GB",
+            "free": "120 GB"
+        }
+    }
+    ```
+- `VDSOHelper.getSystemCpuUsage()`: Calcula a porcentagem de uso total da CPU do sistema.
+
+---
+
 ## 📦 Configuração de Variáveis de Ambiente (.env)
 
 O projeto utiliza um arquivo `.env` para armazenar configurações sensíveis, como tokens de API e credenciais. Certifique-se de criar um arquivo `.env` na raiz do projeto e preencher as variáveis conforme necessário.
