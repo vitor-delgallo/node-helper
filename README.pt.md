@@ -1,6 +1,6 @@
 # Node Helper 🚀
 
-🇺🇸 [Read in English](README.en.md)
+🇺🇸 [Read in English](README.md)
 
 Biblioteca utilitária para projetos Node.js, contendo funções para logs, manipulação de strings, arquivos, integração com GitHub, entre outros.
 

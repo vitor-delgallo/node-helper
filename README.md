@@ -1,6 +1,6 @@
 # Node Helper 🚀
 
-🇧🇷 [Leia em Português](README.md)
+🇧🇷 [Leia em Português](README.pt.md)
 
 Utility library for Node.js projects, providing functions for logging, string manipulation, file handling, GitHub integration, and more.
 
