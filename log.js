@@ -29,9 +29,16 @@ class VDLogHelper {
                 DIVISOR: (GC_DIVISOR <= 0 ? 100 : GC_DIVISOR),
             },
             INTEGRATIONS: {
-                GITHUB: (!!process.env.VD_LOG_AUTO_SEND_GITHUB),
+                GITHUB: {
+                    ENABLED: false,
+                    BRANCH: process.env.VD_LOG_AUTO_SEND_GITHUB_BRANCH,
+                    REPOSITORY: process.env.VD_LOG_AUTO_SEND_GITHUB_REPOSITORY
+                },
             },
         };
+        ret.INTEGRATIONS.GITHUB.ENABLED =
+            !VDStringHelper.isEmpty(ret.INTEGRATIONS.GITHUB.BRANCH) &&
+            !VDStringHelper.isEmpty(ret.INTEGRATIONS.GITHUB.REPOSITORY);
 
         // Verifica quantos arquivos .log que começam com NOW ultrapassam o número máximo de MB
         const SIZE_LIMIT = ret.MAX_SIZE_MB * 1024 * 1024; // 300MB em bytes
@@ -142,8 +149,8 @@ class VDLogHelper {
                 const stats = fs.statSync(filePath);
                 const diff = now - stats.mtime.getTime();
                 if (diff > this.LOG_LIMIT_MS) {
-                    if(this.CONFIGS.INTEGRATIONS.GITHUB) {
-                        let remove = await VDGithubHelper.uploadFile("LMSync", "main", filePath, file);
+                    if(this.CONFIGS.INTEGRATIONS.GITHUB.ENABLED) {
+                        let remove = await VDGithubHelper.uploadFile(this.CONFIGS.INTEGRATIONS.GITHUB.REPOSITORY, this.CONFIGS.INTEGRATIONS.GITHUB.BRANCH, filePath, file);
                         if(remove) {
                             fs.unlinkSync(filePath);
                         }
@@ -174,8 +181,8 @@ class VDLogHelper {
             const remoteFileGH = filePath.substring(filePath.split("\\").join("/").lastIndexOf('/') + 1);
             if (!VDFileHelper.appendStringToFile(filePath, logMessage)) {
                 this.showMessageError();
-            } else if(this.CONFIGS.INTEGRATIONS.GITHUB) {
-                await VDGithubHelper.uploadFile("LMSync", "main", filePath, remoteFileGH);
+            } else if(this.CONFIGS.INTEGRATIONS.GITHUB.ENABLED) {
+                await VDGithubHelper.uploadFile(this.CONFIGS.INTEGRATIONS.GITHUB.REPOSITORY, this.CONFIGS.INTEGRATIONS.GITHUB.BRANCH, filePath, remoteFileGH);
             }
         }
         await this.garbageCollector();

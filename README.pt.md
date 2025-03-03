@@ -232,7 +232,8 @@ VD_LOG_LIMIT_UNITY=days
 VD_LOG_LIMIT_VALUE=7
 VD_LOG_GC_PROBABILITY=5
 VD_LOG_GC_DIVISOR=100
-VD_LOG_AUTO_SEND_GITHUB=true
+VD_LOG_AUTO_SEND_GITHUB_BRANCH=
+VD_LOG_AUTO_SEND_GITHUB_REPOSITORY=
 ```
 
 ### 🔹 Descrição das variáveis:
@@ -252,7 +253,8 @@ VD_LOG_AUTO_SEND_GITHUB=true
 - `VD_LOG_LIMIT_VALUE`: Quantidade de unidades de tempo antes que os logs sejam excluídos.
 - `VD_LOG_GC_PROBABILITY`: Probabilidade de ativação do coletor de lixo dos logs.
 - `VD_LOG_GC_DIVISOR`: Fator divisor para o cálculo da coleta de lixo.
-- `VD_LOG_AUTO_SEND_GITHUB`: Define se os logs serão enviados automaticamente para o GitHub (`true` ou `false`).
+- `VD_LOG_AUTO_SEND_GITHUB_BRANCH`: Define se os logs serão enviados automaticamente para o GitHub nessa branch (Exemplo: main).
+- `VD_LOG_AUTO_SEND_GITHUB_REPOSITORY`: Define se os logs serão enviados automaticamente para o GitHub nesse repositório (Exemplo: LogsSync).
 
 ---
 

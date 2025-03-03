@@ -232,7 +232,8 @@ VD_LOG_LIMIT_UNITY=days
 VD_LOG_LIMIT_VALUE=7
 VD_LOG_GC_PROBABILITY=5
 VD_LOG_GC_DIVISOR=100
-VD_LOG_AUTO_SEND_GITHUB=true
+VD_LOG_AUTO_SEND_GITHUB_BRANCH=
+VD_LOG_AUTO_SEND_GITHUB_REPOSITORY=
 ```
 
 ### 🔹 Variable Descriptions:
@@ -252,7 +253,8 @@ VD_LOG_AUTO_SEND_GITHUB=true
 - `VD_LOG_LIMIT_VALUE`: Number of time units before logs are deleted.
 - `VD_LOG_GC_PROBABILITY`: Probability of triggering log garbage collection.
 - `VD_LOG_GC_DIVISOR`: Divisor for log garbage collection calculation.
-- `VD_LOG_AUTO_SEND_GITHUB`: Determines if logs should be automatically uploaded to GitHub (`true` or `false`).
+- `VD_LOG_AUTO_SEND_GITHUB_BRANCH`: Determines if logs should be automatically uploaded to GitHub in this branch (Example: main).
+- `VD_LOG_AUTO_SEND_GITHUB_REPOSITORY`: Determines if logs should be automatically uploaded to GitHub in this repository (Example: LogsSync).
 
 ---
 
