@@ -248,10 +248,6 @@ VDSOHelper.getSystemCpuUsage().then(cpuUsage => console.log(cpuUsage)); // 30.5
                 "usage": "1.25 %"
             },
             "uptime": "30 minutes"
-        },
-        "disk": {
-            "total": "500 GB",
-            "free": "120 GB"
         }
     }
     ```
