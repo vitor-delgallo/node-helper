@@ -13,18 +13,6 @@ class VDSOHelper {
         const uptime = os.uptime();
         const processUptime = process.uptime(); // Process uptime in minutes
 
-        // Get disk usage (only for UNIX systems)
-        let diskUsage = {};
-        try {
-            const diskStats = fs.statSync('/');
-            diskUsage = {
-                total: VDFileHelper.humanFileSize(diskStats.blksize * diskStats.blocks),
-                free: VDFileHelper.humanFileSize(diskStats.blksize * diskStats.bfree)
-            };
-        } catch (err) {
-            diskUsage = { error: 'Unable to retrieve disk usage data.' };
-        }
-
         // Get system load average (1-minute average)
         const loadAverage = os.loadavg()[0];
 
@@ -66,7 +54,6 @@ class VDSOHelper {
                 },
                 uptime: (processUptime / 60).toFixed(2) + ' minutes',
             },
-            disk: diskUsage,
         };
     }
 
