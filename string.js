@@ -218,7 +218,7 @@ class VDStringHelper {
      * @ref https://stackoverflow.com/questions/3286874/remove-all-multiple-spaces-in-javascript-and-replace-with-single-space
      */
     static removeMultipleSpaces(str) {
-        return str.replace(/ +(?= )/g,'');
+        return str.replace(/([ \t])+/g, ' ');
     }
 
     /**
