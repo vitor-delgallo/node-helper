@@ -210,6 +210,19 @@ console.log(NumberHelper.toInteger("R$ 1.234,56")); // 1234
 
 ---
 
+### 📌 Using `PhoneHelper`
+File: **`dist/phone.min.js`**
+```javascript
+const PhoneHelper = require('node-helper/dist/phone.min.js');
+
+console.log(PhoneHelper.removeCountryCode("5514990001234")); // 14990001234
+```
+
+📌 **Available Functions:**
+- `PhoneHelper.removeCountryCode(phoneWithCountryCode)`: Returns a phone without the country code.
+
+---
+
 ### 📌 Using `VDSOHelper`
 File: **`dist/so.min.js`**
 ```javascript

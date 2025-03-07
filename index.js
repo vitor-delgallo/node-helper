@@ -8,6 +8,7 @@ const VDNumberHelper = require('./number.js');
 const VDObjectHelper = require('./object.js');
 const VDSOHelper = require('./so.js');
 const VDStringHelper = require('./string.js');
+const VDPhoneHelper = require('./phone.js');
 
 module.exports = {
     DateHelper: VDDateHelper,
@@ -20,4 +21,5 @@ module.exports = {
     ObjectHelper: VDObjectHelper,
     SOHelper: VDSOHelper,
     StringHelper: VDStringHelper,
+    PhoneHelper: VDPhoneHelper,
 }
