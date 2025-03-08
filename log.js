@@ -78,24 +78,10 @@ class VDLogHelper {
             case "days":
                 ret = this.CONFIGS.LOG_LIMIT * 24 * 60 * 60 * 1000;
                 break;
-            case "h":
-            case "hour":
-            case "hours":
-                ret = this.CONFIGS.LOG_LIMIT * 60 * 60 * 1000;
-                break;
             case "m":
-            case "min":
-            case "mins":
-            case "minute":
-            case "minutes":
-                ret = this.CONFIGS.LOG_LIMIT * 60 * 1000;
-                break;
-            case "s":
-            case "sec":
-            case "secs":
-            case "second":
-            case "seconds":
-                ret = this.CONFIGS.LOG_LIMIT * 1000;
+            case "month":
+            case "months":
+                ret = this.CONFIGS.LOG_LIMIT * 30 * 24 * 60 * 60 * 1000;
                 break;
         }
 
@@ -172,56 +158,72 @@ class VDLogHelper {
      *
      * @param {string} message Message to be recorded.
      * @param {string} type Log type (INFO, WARN, ERROR).
+     *
+     * @return {string} Message saved in log
      */
     static async add(message, type) {
         this.initialize();
-        if (message && message.length > 0) {
-            const logMessage = VDDateHelper.getNow((process.env.VD_LOG_TIMEZONE ?? "America/Sao_Paulo"), 'YYYY-MM-DD HH:mm:ss') + " " + type + " > " + message + "\n";
-            const filePath = this.CONFIGS.FILE_PATH;
-            const remoteFileGH = filePath.substring(filePath.split("\\").join("/").lastIndexOf('/') + 1);
-            if (!VDFileHelper.appendStringToFile(filePath, logMessage)) {
-                this.showMessageError();
-            } else if(this.CONFIGS.INTEGRATIONS.GITHUB.ENABLED) {
-                await VDGithubHelper.uploadFile(this.CONFIGS.INTEGRATIONS.GITHUB.REPOSITORY, this.CONFIGS.INTEGRATIONS.GITHUB.BRANCH, filePath, remoteFileGH);
-            }
-        }
         await this.garbageCollector();
+        if(!message) {
+            return "";
+        }
+
+        const logTemplate = VDDateHelper.getNow((process.env.VD_LOG_TIMEZONE ?? "America/Sao_Paulo"), 'YYYY-MM-DD HH:mm:ss') + " " + type + " > {{MESSAGE}}\n";
+        const logMessage = logTemplate.replace("{{MESSAGE}}", message);
+
+        const filePath = this.CONFIGS.FILE_PATH;
+        const remoteFileGH = filePath.substring(filePath.split("\\").join("/").lastIndexOf('/') + 1);
+        if (!VDFileHelper.appendStringToFile(filePath, logMessage)) {
+            this.showMessageError();
+        } else if(this.CONFIGS.INTEGRATIONS.GITHUB.ENABLED) {
+            await VDGithubHelper.uploadFile(this.CONFIGS.INTEGRATIONS.GITHUB.REPOSITORY, this.CONFIGS.INTEGRATIONS.GITHUB.BRANCH, filePath, remoteFileGH);
+        }
+
+        return logMessage;
     }
 
     /**
      * Adds an informational message to the log.
      *
      * @param {string} message Message to be recorded.
+     *
+     * @return {string} Message saved in log
      */
     static async addInfo(message) {
-        await this.add(VDStringHelper.removeTags(message), "INFO");
+        return this.add(VDStringHelper.removeTags(message), "INFO");
     }
 
     /**
      * Adds a warning message to the log.
      *
      * @param {string} message Message to be recorded.
+     *
+     * @return {string} Message saved in log
      */
     static async addWarning(message) {
-        await this.add(VDStringHelper.removeTags(message), "WARN");
+        return this.add(VDStringHelper.removeTags(message), "WARN");
     }
 
     /**
      * Adds an error message to the log.
      *
      * @param {string} message Message to be recorded.
+     *
+     * @return {string} Message saved in log
      */
     static async addError(message) {
-        await this.add(VDStringHelper.removeTags(message), "ERRO");
+        return this.add(VDStringHelper.removeTags(message), "ERROR");
     }
 
     /**
      * Adds an exception to the log.
      *
      * @param {Error} error Error object to be recorded.
+     *
+     * @return {string} Message saved in log
      */
     static async addException(error) {
-        await this.add(VDGenericHelper.returnStackTrace(error), "ERRO");
+        return this.add(VDGenericHelper.returnStackTrace(error), "ERROR");
     }
 }
 

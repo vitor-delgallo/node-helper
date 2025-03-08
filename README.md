@@ -141,7 +141,7 @@ File: **`dist/github.min.js`**
 ```javascript
 const GithubHelper = require('node-helper/dist/github.min.js');
 
-GithubHelper.uploadFile("my-repo", "main", "file.txt", "remote/file.txt", "Commit message");
+await GithubHelper.uploadFile("my-repo", "main", "file.txt", "remote/file.txt", "Commit message");
 ```
 
 📌 **Available Functions:**
@@ -174,9 +174,14 @@ File: **`dist/log.min.js`**
 ```javascript
 const LogHelper = require('node-helper/dist/log.min.js');
 
-LogHelper.addInfo("Starting system...");
-LogHelper.addWarning("Warning, something might go wrong!");
-LogHelper.addError("Critical error encountered!");
+await LogHelper.addInfo("Starting system..."); //2025-03-08 02:10:53 INFO > Starting system...
+await LogHelper.addWarning("Warning, something might go wrong!"); //2025-03-08 02:10:53 WARN > Warning, something might go wrong!
+await LogHelper.addError("Critical error encountered!"); //2025-03-08 02:10:53 ERROR > Critical error encountered!
+try {
+  throw new Error("New Test - Error!");
+} catch (e) {
+  await LogHelper.addException(e); //2025-03-08 02:10:53 ERROR > Stack Trace Error
+}
 ```
 
 📌 **Available Functions:**
