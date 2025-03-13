@@ -6,8 +6,8 @@
   "scripts": {
     "start": "node tests/index.js",
     "start:prod": "NODE_ENV=production node tests/index.js",
-    "build:linux": "rm -rf dist && mkdir dist && for file in *.js; do terser \"$file\" --compress --mangle --output \"dist/${file%.js}.min.js\"; done && node scripts/fix-requires.js",
-    "build:windows": "if exist dist rmdir /s /q dist && mkdir dist && for %f in (*.js) do terser %f --compress --mangle --output dist/%~nf.min.js && node scripts/fix-requires.js",
+    "build:linux": "node scripts/clear-dist.mjs && for file in *.js; do terser \"$file\" --compress --mangle --output \"dist/${file%.js}.min.js\"; done && node scripts/fix-requires.js",
+    "build:windows": "node scripts/clear-dist.mjs && for %f in (*.js) do terser %f --compress --mangle --output dist/%~nf.min.js && node scripts/fix-requires.js",
     "build": "node -e \"process.platform === 'win32' ? require('child_process').execSync('npm run build:windows', {stdio: 'inherit'}) : require('child_process').execSync('npm run build:linux', {stdio: 'inherit'})\""
   },
   "repository": {

@@ -8,17 +8,17 @@ Utility library for Node.js projects, providing functions for logging, string ma
 
 ### 1️⃣ Install via GitHub
 ```bash
-npm install git+https://github.com/vitorgd16/node-helper.git
+npm install git+https://github.com/vitor-delgallo/node-helper.git
 ```
 
 ### 2️⃣ Install a fixed version from a GitHub branch
 ```bash
-npm install git+https://github.com/vitorgd16/node-helper.git#main
+npm install git+https://github.com/vitor-delgallo/node-helper.git#main
 ```
 
 ### 3️⃣ Install a fixed version from a GitHub tag
 ```bash
-npm install github:vitorgd16/node-helper#v1.0.00
+npm install github:vitor-delgallo/node-helper#v1.0.00
 ```
 
 ---
