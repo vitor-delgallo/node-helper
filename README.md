@@ -174,20 +174,24 @@ File: **`dist/log.min.js`**
 ```javascript
 const LogHelper = require('node-helper/dist/log.min.js');
 
+await LogHelper.getFormattedMessage("Starting system...", "INFO"); //2025-03-08 02:10:53 INFO > Starting system...
 await LogHelper.addInfo("Starting system..."); //2025-03-08 02:10:53 INFO > Starting system...
 await LogHelper.addWarning("Warning, something might go wrong!"); //2025-03-08 02:10:53 WARN > Warning, something might go wrong!
-await LogHelper.addError("Critical error encountered!"); //2025-03-08 02:10:53 ERROR > Critical error encountered!
+await LogHelper.addError("Error encountered!"); //2025-03-08 02:10:53 ERROR > Error encountered!
+await LogHelper.addCritical("Critical error encountered!"); //2025-03-08 02:10:53 CRITICAL > Critical error encountered!
 try {
   throw new Error("New Test - Error!");
 } catch (e) {
-  await LogHelper.addException(e); //2025-03-08 02:10:53 ERROR > Stack Trace Error
+  await LogHelper.addException(e); //2025-03-08 02:10:53 EXCEPTION > Stack Trace Error
 }
 ```
 
 📌 **Available Functions:**
+- `LogHelper.getFormattedMessage(message)`: Gets a formatted message to be added as a log entry (Log will not be added).
 - `LogHelper.addInfo(message)`: Adds an informational log entry.
 - `LogHelper.addWarning(message)`: Adds a warning log entry.
 - `LogHelper.addError(message)`: Adds an error log entry.
+- `LogHelper.addCritical(message)`: Adds an critical error log entry.
 - `LogHelper.addException(error)`: Adds an exception log entry.
 - `LogHelper.garbageCollector(true)`: Removes old logs based on configuration.
 

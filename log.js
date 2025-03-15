@@ -154,22 +154,48 @@ class VDLogHelper {
     }
 
     /**
+     * Format a message to the log with a specific type.
+     *
+     * @param {string} message Message to be formatted.
+     * @param {string} type Log type (INFO, WARN, ERROR).
+     *
+     * @return {string} Message to be saved in log
+     */
+    static getFormattedMessage(message, type) {
+        let logMessage = VDDateHelper.getNow((process.env.VD_LOG_TIMEZONE ?? "America/Sao_Paulo"), 'YYYY-MM-DD HH:mm:ss') + " " + type + " > {{MESSAGE}}\n";
+
+        type = ((message && type) ? type.toUpperCase() : "");
+        switch (type) {
+            case "INFO":
+            case "WARN":
+            case "ERROR":
+            case "CRITICAL":
+            case "EXCEPTION":
+                logMessage = logMessage.replace("{{MESSAGE}}", message);
+                break;
+            default:
+                logMessage = "";
+        }
+
+        return logMessage;
+    }
+
+    /**
      * Adds a message to the log with a specific type.
      *
      * @param {string} message Message to be recorded.
-     * @param {string} type Log type (INFO, WARN, ERROR).
+     * @param {string} type Log type (INFO, WARN, ERROR, CRITICAL, EXCEPTION).
      *
      * @return {string} Message saved in log
      */
     static async add(message, type) {
         this.initialize();
         await this.garbageCollector();
-        if(!message) {
-            return "";
-        }
 
-        const logTemplate = VDDateHelper.getNow((process.env.VD_LOG_TIMEZONE ?? "America/Sao_Paulo"), 'YYYY-MM-DD HH:mm:ss') + " " + type + " > {{MESSAGE}}\n";
-        const logMessage = logTemplate.replace("{{MESSAGE}}", message);
+        const logMessage = this.getFormattedMessage(message, type);
+        if(!logMessage) {
+            return logMessage;
+        }
 
         const filePath = this.CONFIGS.FILE_PATH;
         const remoteFileGH = filePath.substring(filePath.split("\\").join("/").lastIndexOf('/') + 1);
@@ -216,6 +242,17 @@ class VDLogHelper {
     }
 
     /**
+     * Adds an critical error message to the log.
+     *
+     * @param {string} message Message to be recorded.
+     *
+     * @return {string} Message saved in log
+     */
+    static async addCritical(message) {
+        return this.add(VDStringHelper.removeTags(message), "CRITICAL");
+    }
+
+    /**
      * Adds an exception to the log.
      *
      * @param {Error} error Error object to be recorded.
@@ -223,7 +260,7 @@ class VDLogHelper {
      * @return {string} Message saved in log
      */
     static async addException(error) {
-        return this.add(VDGenericHelper.returnStackTrace(error), "ERROR");
+        return this.add(VDGenericHelper.returnStackTrace(error), "EXCEPTION");
     }
 }
 
